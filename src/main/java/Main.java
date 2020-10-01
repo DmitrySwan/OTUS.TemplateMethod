@@ -4,31 +4,39 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 public class Main {
-    static final String INSERTION = "insertion";
-    static final String MERGE = "merge";
-    static final String SELECTION = "selection";
+    static final String ADDITION = "addition";
+    static final String DETERMINANT = "determinant";
+    static final String TRANSPOSITION = "transposition";
 
     /**
      * Приложение выбирает тип и создаёт конкретные фабрики динамически исходя
      * из конфигурации или окружения.
      */
-    private static SortApplication configureApplication(CommandLine cl) {
-        String sortType = cl.getOptionValue(SortCommandLineParser.SORT);
-        SortApplication app;
-        if (INSERTION.equalsIgnoreCase(sortType)) {
-            app = new SortApplication(new InsertionSortFactory());
-        } else if (MERGE.equalsIgnoreCase(sortType)) {
-            app = new SortApplication(new MergeSortFactory());
+    private static Operation configureApplication(CommandLine cl) {
+        String operationType = getOptionValue(cl, OperationCommandLineParser.OPERATION);
+        Operation operation;
+        if (ADDITION.equalsIgnoreCase(operationType)) {
+            operation = new Addition();
+        } else if (DETERMINANT.equalsIgnoreCase(operationType)) {
+            operation = new Determinant();
         } else {
-            app = new SortApplication(new SelectionSortFactory());
+            operation = new Transposition();
         }
-        app.setInputFile(new File(cl.getOptionValue(SortCommandLineParser.INPUT)));
-        app.setOutputFile(new File(cl.getOptionValue(SortCommandLineParser.OUTPUT)));
-        return app;
+        operation.setInputFile(getFile(cl, OperationCommandLineParser.INPUT));
+        operation.setOutputFile(getFile(cl, OperationCommandLineParser.OUTPUT));
+        return operation;
+    }
+
+    private static File getFile(CommandLine cl, String operation) {
+        return new File(getOptionValue(cl, operation));
+    }
+
+    private static String getOptionValue(CommandLine cl, String operation) {
+        return cl.getOptionValue(operation);
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        SortApplication app = configureApplication(SortCommandLineParser.parseCMDArgs(args));
-        app.sort();
+        Operation operation = configureApplication(OperationCommandLineParser.parseCMDArgs(args));
+        operation.run();
     }
 }

@@ -1,15 +1,9 @@
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.DefaultParser;
-import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.Option;
-import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
+import org.apache.commons.cli.*;
 
-public class SortCommandLineParser {
-    public static final String SORT = "sort";
-    public static final String INPUT = "input";
-    public static final String OUTPUT = "output";
+class OperationCommandLineParser {
+    static final String OPERATION = "operation";
+    static final String INPUT = "input";
+    static final String OUTPUT = "output";
 
     private static Options options = new Options();
 
@@ -19,10 +13,10 @@ public class SortCommandLineParser {
     usage: utility-name
     -i,--input <arg>    input file path
     -o,--output <arg>   output file*/
-    public static CommandLine parseCMDArgs(String[] args) {
+    static CommandLine parseCMDArgs(String[] args) {
         configureOption("i", INPUT, "input file path");
         configureOption("o", OUTPUT, "output file");
-        configureOption("s", SORT, "sort type");
+        configureOption("op", OPERATION, "operation type");
 
         CommandLine cmd = null;
         CommandLineParser parser = new DefaultParser();

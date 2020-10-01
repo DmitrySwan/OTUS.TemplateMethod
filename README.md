@@ -28,18 +28,19 @@
 3. mvn clean install (если необходимо собрать исполняемый jar файл AbstractFactory-1.0-jar-with-dependencies.jar, после сборки лежит в target)
 
 ### Описание тестирования:
-###### 1 Способ. Уже собранный jar-файл (AbstractFactory-1.0-jar-with-dependencies.jar) расположен в корне проекта.
-Пример запуска через cmd:  java -jar AbstractFactory-1.0-jar-with-dependencies.jar -i inputFile.txt -o outputFile.txt -s merge
-типы сортировки: insertion, merge, selection
+###### 1 Способ. Уже собранный jar-файл (TemplateMethod-1.0-jar-with-dependencies.jar) расположен в корне проекта.
+Пример запуска через cmd:  java -jar TemplateMethod-1.0-jar-with-dependencies.jar -i inputFile.txt -o outputFile.txt -op determinant
+типы операций: addition, determinant, transposition
+Пример формата заполнения файла input можно посмотреть в src/test/resources
 
 ###### 2 Способ.Тест расположен в директории src/test/java.
 input и expected output файлы лежат в src/test/resources.
 В процессе запуска тестирования они программно копируются в папку target/test-classes/,
-где в результате тестов(по одному тесту на каждый тип сортировки) генерится свой файл output, который сравнивается с expected output
+где в результате тестов(по одному тесту на каждый тип операции) генерится свой файл output, который сравнивается с expected output
 
 ### Логирование: 
 Файл report.log созданиется в директории проекта/jar файла.
-Содержит информацию о входном массиве, способе сортировке и выходном массиве.
+Содержит информацию о входных данных, способе сортировке и результате.
 
 ##### Диаграмма классов:
 Файл diagram.png находится в корне проекта (сгенерирован ресурсами Intelij IDEA)
